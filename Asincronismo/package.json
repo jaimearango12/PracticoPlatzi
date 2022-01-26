@@ -1,0 +1,21 @@
+{
+  "name": "asincronismo",
+  "version": "1.0.0",
+  "description": "esta es la primer vez que creo que uso nop",
+  "main": "callback/index.js",
+  "scripts": {
+    "callback": "node callback/index.js",
+    "callback:challenge": "node callback/challenge.js",
+    "promise": "node promise/index.js",
+    "promise:challenge": "node promise/challenge.js",
+    "async": "node async-await/index.js"
+  },
+  "keywords": [
+    "callback"
+  ],
+  "author": "Jaime Arango",
+  "license": "MIT",
+  "dependencies": {
+    "xmlhttprequest": "^1.8.0"
+  }
+}
