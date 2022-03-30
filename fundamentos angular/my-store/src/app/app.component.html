@@ -1,9 +1,22 @@
+<h1>Eventos</h1>
+<button (click)="toggleButton()">Toggle Button</button>
+<p>Edad {{person.age}}</p>
+<button (click)="ageIncrease()">Age ++</button>
+<div class="box" (scroll)="onScroll($event)">
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis consequatur eligendi voluptatem excepturi laborum voluptas praesentium, provident at nesciunt doloremque dicta omnis labore beatae? Facere voluptatum dolor quaerat magnam quisquam!</p>
+</div>
+<input type="text" [value]="person.nombre" (keyup)="ChangeName($event)">
+
+
+<h1>Propiedades</h1>
+<button [disabled] = 'btnDisabled'>Enviar</button>
+<input type="text" [value]="name">
+<progress max="100" [value]="age"></progress>
+<img [src]="person.avatar" width="100px">
+
+<hr/>
 <h1>hola mundo</h1>
-
 <h2> {{'hola mundo '.repeat(3) }}</h2>
-
 <p> 3 + 3 = {{ 3+3 }}</p>
-
 <h3>hola soy {{name}} y tegno {{age}} años</h3>
-
 <img src={{img}} alt="imagen">
