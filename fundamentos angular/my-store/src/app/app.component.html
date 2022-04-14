@@ -1,22 +1,39 @@
-<h1>Eventos</h1>
-<button (click)="toggleButton()">Toggle Button</button>
-<p>Edad {{person.age}}</p>
-<button (click)="ageIncrease()">Age ++</button>
-<div class="box" (scroll)="onScroll($event)">
-    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis consequatur eligendi voluptatem excepturi laborum voluptas praesentium, provident at nesciunt doloremque dicta omnis labore beatae? Facere voluptatum dolor quaerat magnam quisquam!</p>
-</div>
-<input type="text" [value]="person.nombre" (keyup)="ChangeName($event)">
-
-
-<h1>Propiedades</h1>
-<button [disabled] = 'btnDisabled'>Enviar</button>
-<input type="text" [value]="name">
-<progress max="100" [value]="age"></progress>
-<img [src]="person.avatar" width="100px">
-
+<h1>NgModel</h1>
+<p>Nombre {{person.nombre}}</p>
+<input type="text" #nameInput="ngModel" [(ngModel)]="person.nombre">
+<p>{{nameInput.valid}}</p>
 <hr/>
-<h1>hola mundo</h1>
-<h2> {{'hola mundo '.repeat(3) }}</h2>
-<p> 3 + 3 = {{ 3+3 }}</p>
-<h3>hola soy {{name}} y tegno {{age}} años</h3>
-<img src={{img}} alt="imagen">
+<h1>ngIf</h1>
+<p *ngIf="person.nombre === 'jaime'; else myblock">My content</p>
+<ng-template #myblock>
+    <p>bloque de else</p>
+</ng-template>
+<hr/>
+<h1>*ngFor</h1>
+<input type="text" required [(ngModel)]="newName">
+<button (click)="addName()">Add name</button>
+<ul>
+    <li *ngIf="names.length === 0 ">No hay nombres</li>
+    <li *ngFor = "let name of names; index as i ">
+        {{name}}
+        <button (click)="deleteName(i)">Delete</button>        
+    </li>
+</ul>
+<hr>
+<h1>ngFor para Arrays</h1>
+<div>
+    <div *ngFor="let product of products">
+        <img width="200px" [src]="product.image" alt="img">
+        <h2>{{product.price}}</h2>
+        <p>{{product.name}}</p>
+    </div>
+</div>
+<hr>
+<h1>ngSwitch</h1>
+<input type="text" required placeholder="Escriba jaime" [(ngModel)]="person.nombre">/
+<div [ngSwitch]="person.nombre">
+    <p *ngSwitchCase="'jaime'">
+        la pérsona es jaime
+    </p>
+    <p *ngSwitchDefault>Solo escriba jaime</p>
+</div>
