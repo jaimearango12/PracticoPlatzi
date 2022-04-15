@@ -1,4 +1,4 @@
-<h1>NgModel</h1>
+<!-- <h1>NgModel</h1>
 <p>Nombre {{person.nombre}}</p>
 <input type="text" #nameInput="ngModel" [(ngModel)]="person.nombre">
 <p>{{nameInput.valid}}</p>
@@ -18,12 +18,31 @@
         {{name}}
         <button (click)="deleteName(i)">Delete</button>        
     </li>
-</ul>
+</ul>  -->
+<h1>Formulario</h1>
+<form (ngSubmit)="onRegister()" #myForm="ngForm">
+    <div class="input-group">
+        <label for="">Nombre</label>
+        <input type="text" name="name" required id="name" [(ngModel)]="register.name">
+        <p>Mensajes de error</p>
+    </div>
+    <div class="input-group">
+        <label for="">Email</label>
+        <input type="email" name="email" required id="email" [(ngModel)]="register.email">
+        <p>Mensajes de error</p>
+    </div>
+    <div class="input-group">
+        <label for="">Password</label>
+        <input type="password" name="password" required id="password" [(ngModel)]="register.password">
+        <p>Mensajes de error</p>
+    </div>
+    <button [disabled]="myForm.invalid" type="submit">registrar</button>
+</form>
 <hr>
 <h1>ngFor para Arrays</h1>
-<div>
+<div class="products--grid">
     <div *ngFor="let product of products">
-        <img width="200px" [src]="product.image" alt="img">
+        <img [src]="product.image" alt="img">
         <h2>{{product.price}}</h2>
         <p>{{product.name}}</p>
     </div>
