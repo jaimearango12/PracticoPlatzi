@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Product } from './product.model';
+import { Product } from './models/product.model';
 
 @Component({
   selector: 'app-root',
@@ -7,7 +7,7 @@ import { Product } from './product.model';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  name = 'Jaime';
+  /*name = 'Jaime';
   age = 12;
   img = 'https://source.unsplash.com/random';
   btnDisabled = true;
@@ -85,5 +85,17 @@ export class AppComponent {
   onRegister(){
     console.log(this.register);
     
+  }*/
+  imgParent= '';
+  showImg = true;
+  
+
+  onLoaded(img: string){
+    console.log('log padre', img);
+    
+  }
+
+  toggleImg(){
+    this.showImg = !this.showImg;
   }
 }

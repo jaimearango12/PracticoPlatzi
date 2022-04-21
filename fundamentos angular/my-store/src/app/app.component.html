@@ -18,7 +18,7 @@
         {{name}}
         <button (click)="deleteName(i)">Delete</button>        
     </li>
-</ul>  -->
+</ul>  
 <h1>Formulario</h1>
 <form (ngSubmit)="onRegister()" #myForm="ngForm">
     <div class="input-group">
@@ -56,3 +56,15 @@
     </p>
     <p *ngSwitchDefault>Solo escriba jaime</p>
 </div>
+
+
+//esta es la parte de componentes y servicios
+
+<p><input type="text" [(ngModel)] = "imgParent" /></p>
+<button (click)="toggleImg()">Toggle img</button>
+<p>{{showImg}}</p>
+<app-img *ngIf="showImg" (loaded)="onLoaded($event)" [img]="imgParent"></app-img> 
+<hr>
+-->
+<app-nav></app-nav>
+<app-products></app-products>
