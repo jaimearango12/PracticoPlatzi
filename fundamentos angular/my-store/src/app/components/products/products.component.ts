@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Product } from 'src/app/models/product.model';
+import { Product, CreateProductDTO} from 'src/app/models/product.model';
 import { ProductService } from 'src/app/services/product.service';
 import { StoreService } from 'src/app/services/store.service';
 
@@ -13,8 +13,18 @@ export class ProductsComponent implements OnInit {
   myShoppingCart: Product[]= [];
   total = 0;
   products: Product[] = [];
-  today = new Date();
-  datw = new Date(2021,6,12)
+  showProductDetail = false;
+  productChoosen: Product= {
+    id: '',
+    title:'',
+    images: [],
+    price: 0,
+    description: '',
+    category: {
+      id: '',
+      name: ''
+    }
+  };
   
   constructor(
     private storeService: StoreService,
@@ -36,4 +46,30 @@ export class ProductsComponent implements OnInit {
     this.total = this.storeService.getTotal();
   }
 
+  toggleProductDetail(){
+    this.showProductDetail = !this.showProductDetail;
+  }
+  
+  onShowDetail(id: string){
+    this.productService.getProduct(id)
+    .subscribe(data => {
+      this.toggleProductDetail();
+      this.productChoosen = data;
+    })
+  }
+
+  createNewProduct(){
+    const product:CreateProductDTO = {
+      title: 'Nuevo Producto',
+      description: 'ramdom',
+      images: [''],
+      price: 1000,
+      categoryId: 2
+    }
+
+    this.productService.create(product)
+    .subscribe(data => {
+      this.products.unshift(data);      
+    })
+  }
 }
