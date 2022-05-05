@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { zip } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
+
 import { Product, CreateProductDTO, UpdateProductDTO} from 'src/app/models/product.model';
+
 import { ProductService } from 'src/app/services/product.service';
 import { StoreService } from 'src/app/services/store.service';
 
@@ -25,6 +29,10 @@ export class ProductsComponent implements OnInit {
       name: ''
     }
   };
+  limit= 10;
+  offset= 0;
+  StatusDetail: 'loading'|'success'|'error'|'init' ='init';
+
   
   constructor(
     private storeService: StoreService,
@@ -34,7 +42,7 @@ export class ProductsComponent implements OnInit {
   }
 
   ngOnInit():void {
-    this.productService.getAllProducts()
+    this.productService.getProductsByPage(10, 0)
     .subscribe(data => {
       this.products = data;
     });
@@ -51,10 +59,33 @@ export class ProductsComponent implements OnInit {
   }
   
   onShowDetail(id: string){
+    this.StatusDetail = 'loading';
     this.productService.getProduct(id)
     .subscribe(data => {
       this.toggleProductDetail();
       this.productChoosen = data;
+      this.StatusDetail = 'success';
+    },error => {
+      console.error(error);
+      this.StatusDetail = 'error';
+    })
+  }
+
+  readAndUpdate(id: string){
+    this.productService.getProduct(id)
+    .pipe(
+      switchMap((product) =>  this.productService.update(product.id, {title: 'change'}))
+    )
+    .subscribe(data =>{
+      console.log(data);
+    });
+    zip(
+      this.productService.getProduct(id),
+      this.productService.update(id, {title:'name'})
+    )
+    .subscribe(response => {
+      const read= response[0];
+      const update= response[1];
     })
   }
 
@@ -96,6 +127,14 @@ export class ProductsComponent implements OnInit {
         this.products.splice(productIndex, 1);
         this.showProductDetail = false;
     })
+  }
+
+  loadMore(){
+    this.productService.getProductsByPage(this.limit, this.offset)
+    .subscribe(data => {
+      this.products = this.products.concat(data);
+      this.offset += this.limit;
+    });
   }
 }
 
