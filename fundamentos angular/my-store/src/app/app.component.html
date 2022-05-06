@@ -68,4 +68,11 @@
 -->
 <app-nav></app-nav>
 <button (click)="createUser()">Create User</button>
+<p><a href="./../assets/files/texto.txt" download>Descargar</a></p>
+<button (click)="downloadPdf()">Download PDF</button>
+<p>
+    <input type="file" (change)="onUpload($event)">
+    <img *ngif="imgRta" [src]="imgRta">
+</p>
+<hr>
 <app-products></app-products>

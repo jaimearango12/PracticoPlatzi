@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { tap } from 'rxjs/operators';
+import { tap, switchMap } from 'rxjs/operators';
 
 import { environment } from 'src/environments/environment';
 import { Auth } from '../models/auth.model';
@@ -27,13 +27,20 @@ export class AuthService {
     );
   }
 
-  profile(token:string){
+  profile(){
     //const headers =new HttpHeaders();
     //headers.set('Authorization', `Bearer ${token}`)
     return this.http.get<User>(`${this.apiUrl}/profile`, {
-      headers: {
-        Authorization : `Bearer ${token}`
-      }
+      //headers: {
+      //  Authorization : `Bearer ${token}`
+      //}
     });
+  }
+
+  loginAndGet(email: string, password: string){
+    return this.login(email,password)
+    .pipe(
+      switchMap(() => this.profile())
+    )
   }
 }
