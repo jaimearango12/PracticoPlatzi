@@ -49,6 +49,7 @@ export class ProductsComponent implements OnInit {
     
   }
 
+  
   onAddToShoppingCart(product:Product) {
     this.storeService.adddProduct(product);
     this.total = this.storeService.getTotal();
